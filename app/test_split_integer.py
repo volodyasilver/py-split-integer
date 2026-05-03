@@ -1,21 +1,54 @@
+import pytest
 from app.split_integer import split_integer
 
-
 def test_sum_of_the_parts_should_be_equal_to_value() -> None:
-    pass
+    value = 17
+    parts = 4
+    result = split_integer(value, parts)
+    assert sum(result) == value, (
+        f"Expected sum of {result} to be {value}"
+    )
 
 
 def test_should_split_into_equal_parts_when_value_divisible_by_parts() -> None:
-    pass
+    value = 6
+    parts = 2
+    result = split_integer(value, parts)
+    assert result == [3, 3], (
+        f"Expected [3, 3] for value {value} and {parts} parts, but got {result}"
+    )
 
 
 def test_should_return_part_equals_to_value_when_split_into_one_part() -> None:
-    pass
+    value = 8
+    parts = 1
+    result = split_integer(value, parts)
+    assert result == [8], (
+        f"Expected [8] for 1 part, but got {result}"
+    )
 
 
 def test_parts_should_be_sorted_when_they_are_not_equal() -> None:
-    pass
+    value = 32
+    parts = 6
+    result = split_integer(value, parts)
+    # Check if sorted
+    assert result == sorted(result), (
+        f"The resulting list {result} should be sorted ascending"
+    )
+    # Check if the difference is <= 1
+    assert max(result) - min(result) <= 1, (
+        f"Difference between max and min in {result} should be <= 1"
+    )
 
 
 def test_should_add_zeros_when_value_is_less_than_number_of_parts() -> None:
-    pass
+    value = 2
+    parts = 5
+    result = split_integer(value, parts)
+    # Expected: [0, 0, 0, 1, 1]
+    assert result == [0, 0, 0, 1, 1], (
+        f"Expected padding with zeros for small values, but got {result}"
+    )
+    assert len(result) == 5
+    assert sum(result) == 2
